@@ -9,10 +9,17 @@ import App from "./Pages/App.vue";
 import Welcome from "./Pages/AppWelcome.vue";
 import Index from "./Pages/Users/Index.vue";
 import Show from "./Pages/Users/Show.vue";
+import Edit from "./Pages/Users/Edit.vue";
+import Create from "./Pages/Users/Create.vue";
+import NotFound from "./Pages/NotFound.vue";
 
 const routes = [
     { path: '/', name:'welcome', component: Welcome },
-    { path: '/users', name:'users', component: Index },
+    { path: '/users', name:'index', component: Index },
+    { path: '/users/:id', name:'show', component: Show },
+    { path: '/users/:id/edit', name:'edit', component: Edit },
+    { path: '/users/create', name:'create', component: Create },
+    { path: '/404', name:'404', component: NotFound },
 ]
 
 const router = createRouter({

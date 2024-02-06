@@ -1,6 +1,9 @@
+<template>
+  <AppTable></AppTable>
+</template>
+
 <script>
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import AppLayout from '@/Layouts/AppLayout.vue';
+import AppTable from '@/Components/AppTable.vue';
 
 export default {
     // Properties returned from data() become reactive state
@@ -13,27 +16,14 @@ export default {
     // Methods are functions that mutate state and trigger updates.
     // They can be bound as event handlers in templates.
     methods: {
-        getIndex() {
-            axios.get('/api/users').then(response => {
-              console.log(response.data.data);
-            });
-        },
+
     },
     // Lifecycle hooks are called at different stages
     // of a component's lifecycle.
     // This function will be called when the component is mounted.
     mounted() {
-        axios.get('/api/users').then(response => {
-          this.users = response.data.data;
-          console.log(response.data.data);
-        });
+
     },
-    components: { PrimaryButton, AppLayout }
+    components: { AppTable }
 }
 </script>
-
-<template>
-
-  
-
-</template>

@@ -23,13 +23,13 @@
 
                     <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                         <li>  
-                            <router-link to="/" class="nav-link text-secondary">
+                            <router-link :to='{name:"welcome"}' class="nav-link text-secondary">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"></use></svg>
                                 Home
                             </router-link>
                         </li>
                         <li>
-                            <router-link to="/users" class="nav-link text-secondary">
+                            <router-link :to='{name:"index"}' class="nav-link text-secondary">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"></use></svg>
                                 Customers
                             </router-link>
