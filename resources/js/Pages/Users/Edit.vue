@@ -1,9 +1,9 @@
 <template>
-
+    <AppEditUser></AppEditUser>
 </template>
 
 <script>
-import AppTable from '@/Components/AppTable.vue';
+import AppEditUser from '@/Components/AppEditUser.vue';
 
 export default {
     // Properties returned from data() become reactive state
@@ -24,6 +24,6 @@ export default {
     mounted() {
 
     },
-    components: { AppTable }
+    components: { AppEditUser }
 }
 </script>
