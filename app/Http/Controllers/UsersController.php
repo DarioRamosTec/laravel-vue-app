@@ -33,7 +33,7 @@ class UsersController extends Controller
         $request->validate([
             "name"          => "required|min:3|max:30",
             "last_name"     => "required|min:2|max:30",
-            "title"         => "required|min:2|max:30",
+            "degree"         => "required|min:2|max:30",
             "department"    => "required|min:2|max:30",
             "email"         => [
                 'required',
@@ -43,7 +43,7 @@ class UsersController extends Controller
         ]);
         $user->name         = $request->get('name', $user->name) ;
         $user->last_name    = $request->get('last_name', $user->last_name);
-        $user->title        = $request->get('title', $user->title);
+        $user->degree        = $request->get('degree', $user->degree);
         $user->department   = $request->get('department', $user->department);
         $user->email        = $request->get('email', $user->email);
         $user->save();
@@ -55,7 +55,7 @@ class UsersController extends Controller
         $request->validate([
             "name"          => "required|min:3|max:30",
             "last_name"     => "required|min:2|max:30",
-            "title"         => "required|min:2|max:30",
+            "degree"         => "required|min:2|max:30",
             "department"    => "required|min:2|max:30",
             "email"         => [
                 'required',
@@ -66,7 +66,7 @@ class UsersController extends Controller
         $user = new User();
         $user->name         = $request->get('name') ;
         $user->last_name    = $request->get('last_name');
-        $user->title        = $request->get('title');
+        $user->degree        = $request->get('degree');
         $user->department   = $request->get('department');
         $user->email        = $request->get('email');
         $user->save();

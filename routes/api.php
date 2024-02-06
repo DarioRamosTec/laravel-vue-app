@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ Route::name('users.')->prefix('users')->group(function () {
     Route::group([], function () {
         Route::get('/{id}', [UsersController::class, 'show'])->name('show');
         Route::get('/{id}/edit', [UsersController::class, 'edit'])->name('edit');
-        Route::put('/{id}', [UsersController::class, 'update'])->name('update');
+        Route::put('/{id}', [UsersController::class, 'update'])->name('update')->middleware([HandlePrecognitiveRequests::class]);
         Route::delete('/{id}', [UsersController::class, 'destroy'])->name('destroy');
     })->where(['id', '[0-9]+']);
 });
