@@ -7,6 +7,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import  PrimaryButton from './Components/PrimaryButton.vue';
 import Index from "./Pages/Users/Index.vue";
+import { createRouter } from 'vue-router'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -32,4 +33,4 @@ createApp({
     pages: {
         Index
     }
-}).mount('#app')
+}).use(ZiggyVue).mount('#app')

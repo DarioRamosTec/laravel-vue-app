@@ -41,7 +41,7 @@ require __DIR__.'/auth.php';
 /* */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('users.index');
 })->name('welcome');
 
 Route::get('/404', function() {

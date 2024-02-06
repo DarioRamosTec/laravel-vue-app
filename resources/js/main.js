@@ -7,6 +7,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import  PrimaryButton from './Components/PrimaryButton.vue';
 import Index from "./Pages/Users/Index.vue";
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -24,4 +25,17 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 //     },
 // });
 
-createApp(Index).mount('#app')
+const routes = [
+    { path: '/about', name:'welcome', component: Index },
+]
+
+const router = createRouter({
+    // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
+    history: createWebHashHistory(),
+    routes, // short for `routes: routes`
+  })
+
+createApp(Index)
+    .use(router)
+    .use(ZiggyVue)
+    .mount('#app')
