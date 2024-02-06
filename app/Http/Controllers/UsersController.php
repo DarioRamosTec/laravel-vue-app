@@ -5,59 +5,83 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Inertia\Response;
-use Inertia\Inertia;
+use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
-    //: Response
     public function index() {
         $users = User::all();
-
-        // return Inertia::render('Users/Index');
-        return view('users.index');
+        return response()->json([
+            "data" => $users
+        ], 200);
     }
 
-    public function create(): Response {
-        return Inertia::render('Users/Create');
-    }
-
-    public function show(int $id): Response {
+    public function show(int $id) {
         $user = User::find($id);
-        if (!$user) return redirect()->route('404');
-        return Inertia::render('Users/Show');
+        if (!$user) return response()->json([], 404);
+        return response()->json([
+            "data" => $user
+        ], 200);
     }
 
-    public function edit(int $id): Response {
+    public function update (Request $request, $id) {
         $user = User::find($id);
-        if (!$user) return redirect()->route('404');
-        return Inertia::render('Users/Edit');
-    }
-
-    public function store(Request $request) {
-
-    }
-
-    public function update(Request $request, int $id) {
-        $user = User::find($id);
-        if (!$user) return redirect('404');
-    }
-
-    public function destroy(int $id) {
-        $user = User::find($id);
-        if (!$user) return redirect('404');
-    }
-
-    public function get(int $id=null)
-    {
-        if ($id) {
-            $user = User::find($id);
-            if (!$user) {
-                return redirect('404');
-            }
-            return response()->json($user);
+        if (!$user) {
+            return view('404');
         }
-        $users = User::all();
-        return response()->json($users);
+
+        $request->validate([
+            "name"          => "required|min:3|max:30",
+            "last_name"     => "required|min:2|max:30",
+            "title"         => "required|min:2|max:30",
+            "department"    => "required|min:2|max:30",
+            "email"         => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($user->id),
+            ],
+        ]);
+        $user->name         = $request->get('name', $user->name) ;
+        $user->last_name    = $request->get('last_name', $user->last_name);
+        $user->title        = $request->get('title', $user->title);
+        $user->department   = $request->get('department', $user->department);
+        $user->email        = $request->get('email', $user->email);
+        $user->save();
+
+        return redirect()->route('users.show', ['id' => $id])->with('status', __('status.userupdated'));
+    }
+
+    public function store (Request $request) {
+        $request->validate([
+            "name"          => "required|min:3|max:30",
+            "last_name"     => "required|min:2|max:30",
+            "title"         => "required|min:2|max:30",
+            "department"    => "required|min:2|max:30",
+            "email"         => [
+                'required',
+                'email',
+                'unique:App\Models\User,email',
+            ],
+        ]);
+        $user = new User();
+        $user->name         = $request->get('name') ;
+        $user->last_name    = $request->get('last_name');
+        $user->title        = $request->get('title');
+        $user->department   = $request->get('department');
+        $user->email        = $request->get('email');
+        $user->save();
+
+        return redirect()->route('users.show', ['id' => $user->id])->with('status', __('status.userstore'));
+    }
+
+    public function destroy ($id) {
+        $user = User::find($id);
+
+        if (!$user) {
+            return view('404');
+        }
+        $user->delete();
+
+        return redirect()->route('users.index')->with('status', __('status.userdestroy'));
     }
 }

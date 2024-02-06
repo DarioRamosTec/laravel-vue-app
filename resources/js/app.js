@@ -2,14 +2,32 @@ import './bootstrap';
 import '../css/app.css';
 
 import { createApp, h } from 'vue/dist/vue.esm-bundler.js';
-import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
-import  PrimaryButton from './Components/PrimaryButton.vue';
-import Index from "./Pages/Users/Index.vue";
-import { createRouter } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+import App from "./Pages/App.vue";
+import Welcome from "./Pages/AppWelcome.vue";
+import Index from "./Pages/Users/Index.vue";
+import Show from "./Pages/Users/Show.vue";
+
+const routes = [
+    { path: '/', name:'welcome', component: Welcome },
+    { path: '/users', name:'users', component: Index },
+]
+
+const router = createRouter({
+    history: createWebHashHistory(),
+    routes,
+})
+
+createApp(App)
+    .use(router)
+    .mount('#app')
+
+// import { createInertiaApp } from '@inertiajs/vue3';
+// import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+
+// const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 // createInertiaApp({
 //     title: (title) => `${title} - ${appName}`,
@@ -24,13 +42,3 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 //         color: '#4B5563',
 //     },
 // });
-
-createApp({
-    components: {
-        PrimaryButton,
-        Index
-    },
-    pages: {
-        Index
-    }
-}).use(ZiggyVue).mount('#app')

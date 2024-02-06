@@ -15,10 +15,14 @@ use App\Http\Controllers\UsersController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::name('users.')->prefix('users')->group(function () {
-    Route::get('/get/{id?}', [UsersController::class, 'get']);
-})->where(['id', '[0-9]+']);
+    Route::get('/', [UsersController::class, 'index'])->name('index');
+    Route::get('/create', [UsersController::class, 'create'])->name('create');
+    Route::post('/', [UsersController::class, 'store'])->name('store');
+    Route::group([], function () {
+        Route::get('/{id}', [UsersController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [UsersController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [UsersController::class, 'update'])->name('update');
+        Route::delete('/{id}', [UsersController::class, 'destroy'])->name('destroy');
+    })->where(['id', '[0-9]+']);
+});

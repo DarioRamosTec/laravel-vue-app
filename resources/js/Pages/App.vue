@@ -1,5 +1,4 @@
 <script>
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 
 export default {
@@ -7,33 +6,26 @@ export default {
     // and will be exposed on `this`.
     data() {
         return {
-            users: [],
+
         };
     },
     // Methods are functions that mutate state and trigger updates.
     // They can be bound as event handlers in templates.
     methods: {
-        getIndex() {
-            axios.get('/api/users').then(response => {
-              console.log(response.data.data);
-            });
-        },
+
     },
     // Lifecycle hooks are called at different stages
     // of a component's lifecycle.
     // This function will be called when the component is mounted.
     mounted() {
-        axios.get('/api/users').then(response => {
-          this.users = response.data.data;
-          console.log(response.data.data);
-        });
+
     },
-    components: { PrimaryButton, AppLayout }
+    components: { AppLayout }
 }
 </script>
 
 <template>
-
-  
-
+  <AppLayout>
+    <router-view></router-view>
+  </AppLayout>
 </template>
