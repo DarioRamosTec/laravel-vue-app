@@ -48,7 +48,9 @@ class UsersController extends Controller
         $user->email        = $request->get('email', $user->email);
         $user->save();
 
-        return redirect()->route('users.show', ['id' => $id])->with('status', __('status.userupdated'));
+        return response()->json([
+            "data" => $user
+        ], 200);
     }
 
     public function store (Request $request) {
@@ -71,17 +73,21 @@ class UsersController extends Controller
         $user->email        = $request->get('email');
         $user->save();
 
-        return redirect()->route('users.show', ['id' => $user->id])->with('status', __('status.userstore'));
+        return response()->json([
+            "data" => $user
+        ], 200);
     }
 
     public function destroy ($id) {
         $user = User::find($id);
 
         if (!$user) {
-            return view('404');
+            return response()->json([], 404);
         }
         $user->delete();
 
-        return redirect()->route('users.index')->with('status', __('status.userdestroy'));
+        return response()->json([
+            "data" => $user
+        ], 200);
     }
 }

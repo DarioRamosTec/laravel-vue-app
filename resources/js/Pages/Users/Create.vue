@@ -1,8 +1,10 @@
 <template>
-
+    <AppCreateUser></AppCreateUser>
 </template>
 
 <script>
+import AppCreateUser from '@/Components/AppCreateUser.vue'
+
 export default {
     // Properties returned from data() become reactive state
     // and will be exposed on `this`.
@@ -22,6 +24,6 @@ export default {
     mounted() {
 
     },
-    components: { }
+    components: { AppCreateUser }
 }
 </script>

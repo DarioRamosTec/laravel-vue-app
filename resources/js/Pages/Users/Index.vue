@@ -1,9 +1,20 @@
 <template>
-  <AppTable></AppTable>
+
+    <TitleTable :add="this.goCreate">
+       <template #default>
+            User's table.
+       </template>
+       <template v-slot:body>            
+            Here is the user's table.
+       </template> 
+    </TitleTable>
+
+    <AppTable></AppTable>
 </template>
 
 <script>
 import AppTable from '@/Components/AppTable.vue';
+import TitleTable from '@/Components/TitleTable.vue';
 
 export default {
     // Properties returned from data() become reactive state
@@ -16,7 +27,9 @@ export default {
     // Methods are functions that mutate state and trigger updates.
     // They can be bound as event handlers in templates.
     methods: {
-
+        goCreate() {
+            this.$router.push({name: 'create'})
+        }
     },
     // Lifecycle hooks are called at different stages
     // of a component's lifecycle.
@@ -24,6 +37,6 @@ export default {
     mounted() {
 
     },
-    components: { AppTable }
+    components: { AppTable, TitleTable }
 }
 </script>
